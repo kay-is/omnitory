@@ -44,16 +44,16 @@ cargoRoutes.get("/index/*", async (context) => {
 
   const packageName = context.path.split("/").pop()
 
-  const metadataFilePath = path.join(
-    CARGO_FIXTURE_DIRECTORY,
-    `${packageName}.metadata.jsonl`
-  )
+  const TX_ID = "_qTUpVlq4dGU_xVJvbngyzs5T3i4giuYNAE4O8Q0-ts"
+  const arweaveLocation = `https://arweave.net/${TX_ID}/${packageName}.metadata.jsonl`
 
-  console.info("[CARGO] Reading metadata at " + metadataFilePath)
-  const file = await Bun.file(metadataFilePath)
-
-  console.info("[CARGO] <- metadata")
-  return file
+  console.info("[CARGO] <- Redirect: " + arweaveLocation)
+  return new Response(null, {
+    status: 301,
+    headers: {
+      Location: arweaveLocation,
+    },
+  })
 })
 
 cargoRoutes.get(
@@ -61,15 +61,15 @@ cargoRoutes.get(
   async (context) => {
     console.info("[CARGO] -> GET " + context.path)
 
-    const crateFilePath = path.join(
-      CARGO_FIXTURE_DIRECTORY,
-      `${context.params.packageName}-${context.params.packageVersion}.crate`
-    )
+    const TX_ID = "_qTUpVlq4dGU_xVJvbngyzs5T3i4giuYNAE4O8Q0-ts"
+    const arweaveLocation = `https://arweave.net/${TX_ID}/${context.params.packageName}-${context.params.packageVersion}.crate`
 
-    console.info("[CARGO] Reading crate at " + crateFilePath)
-    const file = await Bun.file(crateFilePath)
-
-    console.info("[CARGO] <- crate")
-    return file
+    console.info("[CARGO] <- Redirect: " + arweaveLocation)
+    return new Response(null, {
+      status: 301,
+      headers: {
+        Location: arweaveLocation,
+      },
+    })
   }
 )

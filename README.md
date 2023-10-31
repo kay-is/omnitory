@@ -1,6 +1,6 @@
-# Omnitory
+# ꙮmnitory
 
-A decentralized perpetual package registry. 
+The perpertual package registry.
 
 ## Library Reference
 
@@ -14,3 +14,4 @@ A decentralized perpetual package registry.
 - https://docs.irys.xyz
 - https://web3infra.dev
 - https://developer.litprotocol.com/v3
+- https://js-sdk.litprotocol.com

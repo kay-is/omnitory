@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@bogeychan/elysia-logger": "^0.0.12",
+    "@lit-protocol/lit-node-client-nodejs": "cayenne",
     "elysia": "latest"
   },
   "devDependencies": {
