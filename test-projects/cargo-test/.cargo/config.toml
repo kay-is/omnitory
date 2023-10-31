@@ -1,0 +1,5 @@
+[registries.omnitory]
+index = "sparse+https://friendly-garbanzo-wpvqp7p5x3949j-3000.app.github.dev/cargo/index/" 
+
+[source.crates-io]
+replace-with = "omnitory"

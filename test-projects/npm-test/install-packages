@@ -1,0 +1,15 @@
+#!/bin/bash
+
+echo "Cleaning directory..."
+rm -rf ./node_modules > /dev/null
+rm ./package.json > /dev/null
+rm ./package-lock.json > /dev/null
+
+echo "Initializing NPM project with chalk package..."
+npm init -y > /dev/null
+npm i chalk > /dev/null
+
+echo "Running clean NPM install..."
+npm ci > /dev/null
+
+echo "Done!"
