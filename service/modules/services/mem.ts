@@ -39,8 +39,7 @@ export const writeContract = async (input: { [key: string]: string }) => {
 }
 
 const createAuth = async () => {
-  const walletFile = await Bun.file("key.json")
-  const wallet = await walletFile.json()
+  const wallet = JSON.parse(process.env.ARWEAVE_KEY || "")
   const caller = await arweave.wallets.jwkToAddress(wallet)
   const message = "verify-" + Date.now()
   const signature = await signMessage(wallet, message)

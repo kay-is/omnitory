@@ -1,8 +1,8 @@
 import fs from "fs"
 import childProcess from "child_process"
 import fetch from "node-fetch"
-import { PackageJson, Packument, PackumentVersion } from "@npm/types"
-
+import { PackageJson, Packument } from "@npm/types"
+import { rimrafSync } from "rimraf"
 import {
   getAddress,
   getArweaveGatewayUrl,
@@ -69,6 +69,9 @@ export const publish = async () => {
       process.exit(1)
     }
   }
+
+  rimrafSync(OMNITORY_DIRECTORY)
+  fs.mkdirSync(OMNITORY_DIRECTORY)
 
   console.info("Creating new archive version...")
   childProcess.execSync("npm pack --pack-destination " + OMNITORY_DIRECTORY)

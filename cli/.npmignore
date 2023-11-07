@@ -1,3 +1,3 @@
-omni.json
-/modules
-.omnitory
+modules/**/*
+dist/tsconfig.tsbuildinfo
+key.json

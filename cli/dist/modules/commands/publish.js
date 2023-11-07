@@ -1,6 +1,7 @@
 import fs from "fs";
 import childProcess from "child_process";
 import fetch from "node-fetch";
+import { rimrafSync } from "rimraf";
 import { getAddress, getArweaveGatewayUrl, getOmnitoryApiUrl, getIrysGatewayUrl, getKeyPath, } from "../config.js";
 import { namespace } from "../services/namespace.js";
 import { getIrys } from "../services/irys.js";
@@ -40,6 +41,8 @@ export const publish = async () => {
             process.exit(1);
         }
     }
+    rimrafSync(OMNITORY_DIRECTORY);
+    fs.mkdirSync(OMNITORY_DIRECTORY);
     console.info("Creating new archive version...");
     childProcess.execSync("npm pack --pack-destination " + OMNITORY_DIRECTORY);
     console.info("Uploading archive to Arweave...");

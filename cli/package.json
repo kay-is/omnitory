@@ -1,6 +1,6 @@
 {
   "name": "omnitory-cli",
-  "version": "0.1.4",
+  "version": "0.1.6",
   "author": {
     "name": "Kay Plößer",
     "url": "https://kay.is"
@@ -16,7 +16,8 @@
   "dependencies": {
     "@irys/sdk": "^0.0.4",
     "arweave": "^1.14.4",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.3.2",
+    "rimraf": "^5.0.5"
   },
   "peerDependencies": {
     "typescript": "^5.0.0"
