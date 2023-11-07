@@ -2,6 +2,20 @@
 
 The perpertual package registry.
 
+## ꙮmnitory Service
+
+A Bun/Elysia based service that handles registration and package metadata with
+Arweave and a MEM namespace
+
+## ꙮmnitory CLI
+
+A Node.js based CLI that handles package publishing with Arweave, Irys,and a MEM
+namespace.
+
+## ꙮmnitory Website
+
+A Vite/Preact based website that handles registration package discovery with a MEM namespace.
+
 ## Library Reference
 
 - https://bun.sh/docs

@@ -1,9 +1,15 @@
-/**
- * token = request.POST[`"h-captcha-response"]
-params = {
-   "secret": "ES_411570a231b941db835db542f9ca7f85",
-   "response": token
-}
-json = http.POST("https://hcaptcha.com/siteverify", params)
+import Elysia from "elysia"
 
- */
+const { HCAPTCHA_SECRET } = process.env
+
+const checkCaptchaResponse = async (token: string) => {
+  const url = `https://hcaptcha.com/siteverify?secret=${HCAPTCHA_SECRET}&response=${token}`
+  const response = await fetch(url, { method: "post" })
+  const data = await response.json()
+  return data.success
+}
+
+export const hcaptchaService = () =>
+  new Elysia({ name: "hcaptcha" }).decorate("hcaptcha", {
+    check: checkCaptchaResponse,
+  })

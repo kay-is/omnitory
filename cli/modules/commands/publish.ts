@@ -18,8 +18,21 @@ const OMNITORY_DIRECTORY = ".omnitory"
 
 export const publish = async () => {
   console.info("Publishing to ꙮmnitory...")
-  console.info(`Key location: ${await getKeyPath()} (${await getAddress()})`)
+  console.info(
+    `Key location: ${await getKeyPath()}\n  Address: ${await getAddress()}`
+  )
   console.info("NPM project location:", process.cwd())
+
+  console.info("Checking if address is registered in ꙮmnitory...")
+  const isKeyRegistered = await namespace.addressIsRegistered(
+    await getAddress()
+  )
+
+  if (!isKeyRegistered) {
+    console.error("Address not registered in ꙮmnitory!")
+    console.error("Check your key or go to https://omnitory.org to register!")
+    process.exit(1)
+  }
 
   const packageJson = JSON.parse(
     fs.readFileSync("package.json", { encoding: "utf-8" })
@@ -39,7 +52,7 @@ export const publish = async () => {
         "Previous version published by a different package owner: " +
           packageDomain.owner
       )
-      console.error("Check your keys!")
+      console.error("Check your key!")
       process.exit(1)
     }
 
@@ -65,10 +78,9 @@ export const publish = async () => {
 
   const tarballUploadResult = await getIrys().uploadFile(tarballFilePath)
 
-  const newPackageVersion: PackumentVersion = {
+  const newPackageVersion: any = {
     ...packageJson,
     id: tarballUploadResult.id,
-    npmUser: "N/A",
     npmVersion: packageJson.engines?.npm || "",
     nodeVersion: packageJson.engines?.node || "",
     maintainers: [packageJson.author || ""],
@@ -160,7 +172,9 @@ export const publish = async () => {
     metadataString
   )
 
-  console.info("ꙮmnitory URL: " + getOmnitoryApiUrl() + packageJson.name)
+  console.info(
+    "ꙮmnitory URL: " + getOmnitoryApiUrl() + "npm/" + packageJson.name
+  )
 
   console.info(
     "Arweave URL: " + getArweaveGatewayUrl() + metadataUploadResult.id

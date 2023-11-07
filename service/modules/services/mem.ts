@@ -12,13 +12,13 @@ const MEM_API_BASE_URL = "https://api.mem.tech/api"
 const MEM_READ_STATE_URL = MEM_API_BASE_URL + "/state/" + MEM_CONTRACT_ID
 const MEM_READ_TXS_URL = MEM_API_BASE_URL + "/transactions"
 
-console.info("[MEM] Initialized with contract ID:", MEM_CONTRACT_ID)
+console.info("[MEM ] Initializing with contract ID:")
+console.info("[MEM ]  ", MEM_CONTRACT_ID)
 
 export const readState = async () => {
-  console.info("[MEM] Reading state...")
+  console.info("[MEM ] Reading state...")
   const response = await fetch(MEM_READ_STATE_URL)
   const state = await response.json()
-  console.info("[MEM] State: \n", state)
   return state
 }
 
@@ -34,15 +34,15 @@ export const writeContract = async (input: { [key: string]: string }) => {
     }),
   })
   const result = await response.json()
-  console.info("[MEM] Result: \n", result)
+  console.info("[MEM] Result: " + result.status)
   return result
 }
 
 const createAuth = async () => {
-  const walletFile = await Bun.file("../../key.json")
+  const walletFile = await Bun.file("key.json")
   const wallet = await walletFile.json()
   const caller = await arweave.wallets.jwkToAddress(wallet)
-  const message = "verify-" + Date.now() + Math.random()
+  const message = "verify-" + Date.now()
   const signature = await signMessage(wallet, message)
   return { caller, signature, message }
 }

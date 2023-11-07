@@ -14,7 +14,7 @@ const CONFIG_TEMPLATE_FILE_PATH = join(
   "..",
   "..",
   "..",
-  "config.template.json"
+  "omni.template.json"
 )
 const KEY_FILE_PATH = join(process.cwd(), "key.json")
 

@@ -1,6 +1,10 @@
 {
   "name": "omnitory-cli",
-  "version": "0.1.0",
+  "version": "0.1.4",
+  "author": {
+    "name": "Kay Plößer",
+    "url": "https://kay.is"
+  },
   "type": "module",
   "module": "modules/index.ts",
   "bin": {

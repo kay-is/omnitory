@@ -1,30 +1,38 @@
-import path from "node:path"
 import { Elysia } from "elysia"
 
-import { configMiddleware } from "../config"
-import { namespaceMiddleware } from "../services/namespace"
+import { namespaceService } from "../services/namespace"
 
-console.info("[NPM] Initializing...")
+console.info("[NPM ] Initializing endpoints:")
 
-export const npmRoutes = new Elysia({ prefix: "/npm" })
-  .use(configMiddleware)
-  .use(namespaceMiddleware)
+const { ARWEAVE_GATEWAY_URL } = process.env
+
+const NPM_PREFIX = "/npm/"
+const OMNITORY_SCOPE = "@omnitory%252f"
+
+export const npmRoutes = new Elysia({ prefix: "/npm" }).use(namespaceService)
 
 // Metadata Endpoint
-npmRoutes.get("/:packageName", async (context) => {
-  console.info("[NPM] -> GET " + context.path)
+console.info("[NPM ]   GET /npm/:packageName")
+npmRoutes.get("/*", async (context) => {
+  console.info("[NPM ] -> GET " + context.path)
 
-  const domain = await context.namespace.resolve(context.params.packageName)
+  const packageName = context.path
+    .replace(NPM_PREFIX, "")
+    .replace(OMNITORY_SCOPE, "")
+
+  console.log(packageName)
+
+  const domain = await context.namespace.resolve(packageName)
 
   if (!domain) {
-    return new Response(`Package "${context.params.packageName}" not found.`, {
+    return new Response(`Package "${packageName}" not found.`, {
       status: 404,
     })
   }
 
-  const arweaveLocation = context.config.gateways[0] + domain.tx_id
+  const arweaveLocation = ARWEAVE_GATEWAY_URL + domain.tx_id
 
-  console.info("[NPM] <- Redirecting to " + arweaveLocation)
+  console.info("[NPM ] <- Redirecting to " + arweaveLocation)
   return new Response(null, {
     status: 301,
     headers: {

@@ -6,7 +6,7 @@ Use this CLI to publish packages to ꙮmnitory.
 
 Install the CLI via the ꙮmnitory registry:
 
-    $ npm -g config set @omnitory:registry=https://localhost:3000/npm
+    $ npm -g config set @omnitory:registry=https://omnitory.org/npm
     $ npm -g install @omnitory/omnitory-cli
 
 ## Usage

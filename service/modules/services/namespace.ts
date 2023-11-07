@@ -12,15 +12,19 @@ const addUser = async (address: string) => {
   await writeContract({ function: "addUser", address })
 }
 
+const isAddressAllowed = async (address: string) => {
+  const state = await readState()
+  return state.allow_list.includes(address)
+}
+
 const pauseUnpauseContract = async () => {
   await writeContract({ function: "pauseUnpauseContract" })
 }
 
-export const namespaceMiddleware = new Elysia({ name: "namespace" }).decorate(
-  "namespace",
-  {
-    resolve,
+export const namespaceService = () =>
+  new Elysia({ name: "namespace" }).decorate("namespace", {
     addUser,
+    isAddressAllowed,
     pauseUnpauseContract,
-  }
-)
+    resolve,
+  })
