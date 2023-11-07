@@ -22,16 +22,13 @@ export function Registration() {
       return cred
     }, {})
 
-    const response = await fetch(
-      "https://friendly-garbanzo-wpvqp7p5x3949j-3000.app.github.dev/registration",
-      {
-        method: "post",
-        body: JSON.stringify(credentials),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    )
+    const response = await fetch("https://registry.omnitory.org/registration", {
+      method: "post",
+      body: JSON.stringify(credentials),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
     const result = await response.json()
 
     setRegistrationResult(result.message)
