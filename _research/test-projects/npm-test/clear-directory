@@ -1,0 +1,6 @@
+#!/bin/bash
+
+echo "Cleaning directory..."
+rm -rf ./node_modules > /dev/null
+rm ./package.json > /dev/null
+rm ./package-lock.json > /dev/null

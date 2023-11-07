@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Cleaning directory and Cargo cache..."
+
+rm -rf ~/.cargo/registry/cache > /dev/null
+rm -rf ./src > /dev/null
+rm -rf ./target > /dev/null
+rm Cargo.lock > /dev/null
+rm Cargo.toml > /dev/null

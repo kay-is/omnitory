@@ -1,0 +1,12 @@
+#!/bin/bash
+
+./clear-directory
+
+echo "Initializing NPM project with example-project package..."
+npm init -y > /dev/null
+npm i example-project@1.0.1 > /dev/null
+
+echo "Running clean NPM install..."
+npm ci > /dev/null
+
+echo "Done!"

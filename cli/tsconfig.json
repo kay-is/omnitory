@@ -1,0 +1,20 @@
+{
+  "include": ["modules/**/*.ts"],
+  "compilerOptions": {
+    "outDir": "./dist",
+    "lib": ["ES2022"],
+    "module": "NodeNext",
+    "target": "ES2022",
+    "moduleResolution": "NodeNext",
+    "moduleDetection": "force",
+    "composite": true,
+    "strict": true,
+    "downlevelIteration": true,
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "allowJs": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true
+  }
+}

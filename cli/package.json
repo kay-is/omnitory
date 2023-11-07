@@ -1,0 +1,23 @@
+{
+  "name": "omnitory-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "module": "modules/index.ts",
+  "bin": {
+    "omni": "./bin/cli.js"
+  },
+  "scripts": {
+    "build": "tsc --project tsconfig.json"
+  },
+  "dependencies": {
+    "@irys/sdk": "^0.0.4",
+    "arweave": "^1.14.4",
+    "node-fetch": "^3.3.2"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "devDependencies": {
+    "@npm/types": "^1.0.2"
+  }
+}

@@ -1,0 +1,12 @@
+#!/bin/bash
+
+./clear-directory
+
+echo "Initializing Cargo project with rustc-std-workspace-core package..."
+cargo init > /dev/null
+echo "rustc-std-workspace-core = \"^1.0.0\"" >> ./Cargo.toml
+
+echo "Running clean Cargo build..."
+cargo build > /dev/null
+
+echo "Done!"
