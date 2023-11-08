@@ -59,10 +59,9 @@ export function Registration() {
         <div class="join w-full">
           <div class="form-control w-full">
             <input
-              value="Enter Arweave address..."
               name="address"
               type="text"
-              placeholder="Arweave Address"
+              placeholder="Enter Arweave address..."
               class="input input-bordered w-full"
             />
           </div>
