@@ -1,6 +1,5 @@
 import fs from "fs"
 import path from "path"
-import { getAddress, getKeyPath } from "./config.js"
 
 // will be omnitory-cli/dist/modules/commands
 const __dirname = new URL(".", import.meta.url).pathname
@@ -15,6 +14,10 @@ export const main = async () => {
       const { init } = await import("./commands/init.js")
       await init()
       process.exit(0)
+    case "info":
+      const { info } = await import("./commands/info.js")
+      await info()
+      process.exit(0)
     case "publish":
       const { publish } = await import("./commands/publish.js")
       await publish()
@@ -24,13 +27,13 @@ export const main = async () => {
         fs.readFileSync(PACKAGE_JSON_FILE_PATH, { encoding: "utf-8" })
       )
       console.info("ꙮmnitory CLI " + packageJson.version)
-      console.info("Active key:")
-      console.info("  Location: ", await getKeyPath())
-      console.info("  Address:", await getAddress())
 
       console.info("Available commands:")
       console.info(
-        "  omni init: Creates .omnitory directory, key.json, and omni.json in the current directory."
+        "  omni init   : Creates .omnitory directory, key.json, and omni.json in the current directory."
+      )
+      console.info(
+        "  omni info   : Display information about the current project and key."
       )
       console.info(
         "  omni publish: Packages the project and publishes it to ꙮmnitory"

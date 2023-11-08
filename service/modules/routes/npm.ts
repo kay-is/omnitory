@@ -7,7 +7,8 @@ console.info("[NPM ] Initializing endpoints:")
 const { ARWEAVE_GATEWAY_URL } = process.env
 
 const NPM_PREFIX = "/npm/"
-const OMNITORY_SCOPE = "@omnitory%252f"
+const OMNITORY_SCOPE_A = "@omnitory%252f"
+const OMNITORY_SCOPE_B = "@omnitory%2f"
 
 export const npmRoutes = new Elysia({ prefix: "/npm" }).use(namespaceService)
 
@@ -17,7 +18,11 @@ npmRoutes.get("/*", async (context) => {
   console.info("[NPM ] -> GET " + context.path)
 
   const packageName =
-    "npm-" + context.path.replace(NPM_PREFIX, "").replace(OMNITORY_SCOPE, "")
+    "npm-" +
+    context.path
+      .replace(NPM_PREFIX, "")
+      .replace(OMNITORY_SCOPE_A, "")
+      .replace(OMNITORY_SCOPE_B, "")
 
   const domain = await context.namespace.resolve(packageName)
 

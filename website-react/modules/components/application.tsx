@@ -72,7 +72,7 @@ function App() {
           <code> .npmrc</code>:
         </p>
         <pre className="pl-10 py-5">
-          <code>@omnitory:registry=https://registry.omnitory.org/</code>
+          <code>@omnitory:registry=https://registry.omnitory.org/npm/</code>
         </pre>
         <p className="pb-2">
           This makes packages on ꙮmnitory available via the
@@ -126,7 +126,8 @@ function App() {
         </p>
         <pre className="pl-10 py-5">
           <code>
-            npm -g config set @omnitory:registry=https://omnitory.org/npm
+            npm -g config set
+            @omnitory:registry=https://registry.omnitory.org/npm/
             <br />
             npm -g install @omnitory/omnitory-cli
           </code>
@@ -169,6 +170,15 @@ function App() {
           When you have the same key inside your project as in your wallet, you
           can register the address here.
         </p>
+
+        <p className="pb-2">
+          You can check the active key for your project by running:
+        </p>
+
+        <pre className="pl-10 py-5">
+          <code>omni info</code>
+        </pre>
+
         <Registration />
       </div>
     </div>
