@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@hcaptcha/react-hcaptcha": "^1.8.1",
+    "arweave-wallet-kit": "^1.0.3",
     "daisyui": "^3.9.4",
     "preact": "^10.16.0"
   },

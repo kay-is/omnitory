@@ -42,7 +42,7 @@ export const publish = async () => {
   console.info("Package version:", packageJson.version)
 
   console.info("Checking ꙮmnitory for existing versions...")
-  const packageDomain = await namespace.resolve(packageJson.name)
+  const packageDomain = await namespace.resolve("npm-" + packageJson.name)
 
   if (packageDomain) {
     console.info("Existing version found!")
@@ -164,10 +164,10 @@ export const publish = async () => {
 
   if (!packageDomain) {
     console.info("Creating new package in ꙮmnitory...")
-    await namespace.mint(packageJson.name, metadataUploadResult.id)
+    await namespace.mint("npm-" + packageJson.name, metadataUploadResult.id)
   } else {
     console.info("Updating existing package in ꙮmnitory...")
-    await namespace.update(packageJson.name, metadataUploadResult.id)
+    await namespace.update("npm-" + packageJson.name, metadataUploadResult.id)
   }
 
   fs.writeFileSync(
@@ -180,6 +180,10 @@ export const publish = async () => {
   )
 
   console.info(
-    "Arweave URL: " + getArweaveGatewayUrl() + metadataUploadResult.id
+    "Arweave Archive URL: " + getArweaveGatewayUrl() + tarballUploadResult.id
+  )
+
+  console.info(
+    "Arweave Metadata URL: " + getArweaveGatewayUrl() + metadataUploadResult.id
   )
 }

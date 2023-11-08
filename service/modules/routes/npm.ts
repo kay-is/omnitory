@@ -16,11 +16,8 @@ console.info("[NPM ]   GET /npm/:packageName")
 npmRoutes.get("/*", async (context) => {
   console.info("[NPM ] -> GET " + context.path)
 
-  const packageName = context.path
-    .replace(NPM_PREFIX, "")
-    .replace(OMNITORY_SCOPE, "")
-
-  console.log(packageName)
+  const packageName =
+    "npm-" + context.path.replace(NPM_PREFIX, "").replace(OMNITORY_SCOPE, "")
 
   const domain = await context.namespace.resolve(packageName)
 
