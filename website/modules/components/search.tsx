@@ -1,67 +1,67 @@
-import { useState } from "preact/hooks"
+import { useState } from "react"
 import { findPackages as findPackage } from "../services/mem"
 
 export function Search() {
   const [searchLoading, setSearchLoading] = useState(false)
   const [searchPackageName, setSearchPackageName] =
-    useState<string>("example-project")
+    useState<string>("omnitory-cli")
   const [foundPackages, setFoundPackages] = useState<any[]>([])
 
   async function handlePackageSearch() {
     if (searchPackageName.length === 0) return
     setSearchLoading(true)
-    const pkg: any = await findPackage(searchPackageName)
+    const pkg: any = await findPackage("npm-" + searchPackageName)
 
     setSearchLoading(false)
-    const list = Object.keys(pkg.versions).map((version) => {
-      return {
-        date: pkg.time[version]
-          .replace("T", " ")
-          .replace("Z", "")
-          .split(".")[0],
-        name: pkg.name,
-        version,
-        url: pkg.versions[version].dist.tarball,
-      }
-    })
+    const list = Object.keys(pkg.versions)
+      .map((version) => {
+        return {
+          date: pkg.time[version]
+            .replace("T", " ")
+            .replace("Z", "")
+            .split(".")[0],
+          name: pkg.name,
+          version,
+          url: pkg.versions[version].dist.tarball,
+        }
+      })
+      .reverse()
 
     setFoundPackages(list)
   }
 
   return (
     <>
-      <div class="join w-full pt-5">
-        <div class="form-control">
-          <select class="select select-bordered">
+      <div className="join w-full pt-5">
+        <div className="form-control">
+          <select className="select select-bordered" disabled>
             <option selected>npm</option>
-            <option disabled>cargo (N/A)</option>
-            <option disabled>pip (N/A)</option>
           </select>
         </div>
-        <div class="form-control w-full">
+        <div className="form-control w-full">
           <input
             value={searchPackageName}
-            onChange={(e: any) => setSearchPackageName(e.target.value)}
+            onChange={(e) => setSearchPackageName(e.target.value)}
             type="text"
             placeholder="package-name"
-            class="input input-bordered w-full"
+            className="input input-bordered w-full"
           />
         </div>
         <button
-          class="btn btn-primary"
+          className="btn btn-primary"
           onClick={handlePackageSearch}
           disabled={searchLoading}
         >
           {!searchLoading ? (
             "Search"
           ) : (
-            <span class="loading loading-infinity loading-lg"></span>
+            <span className="loading loading-infinity loading-lg"></span>
           )}
         </button>
       </div>
 
-      <div class="overflow-x-auto">
-        <table class="table table-zebra">
+      <div className="overflow-x-auto">
+        <table className="table table-zebra">
           <thead>
             <tr>
               <th>Publication Date</th>
@@ -72,8 +72,8 @@ export function Search() {
           <tbody>
             {foundPackages.map((pkg) => (
               <tr>
-                <td class="whitespace-nowrap">{pkg.date}</td>
-                <td class="whitespace-nowrap">
+                <td className="whitespace-nowrap">{pkg.date}</td>
+                <td className="whitespace-nowrap">
                   <code>
                     "@omnitory/
                     {pkg.name}

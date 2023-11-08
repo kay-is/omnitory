@@ -1,30 +1,30 @@
-import { useState } from "preact/hooks"
+import { useState } from "react"
 import HCaptcha from "@hcaptcha/react-hcaptcha"
+import {
+  ConnectButton,
+  useActiveAddress,
+  useConnection,
+} from "arweave-wallet-kit"
 
 export function Registration() {
+  const selectedAddress = useActiveAddress()
+  const arweaveConnection = useConnection()
   const [registrationResult, setRegistrationResult] = useState("")
-  const [captchaSolved, setCaptchaSolved] = useState(false)
+  const [captchaToken, setCaptchaToken] = useState("")
 
-  function handleVerificationSuccess() {
-    setCaptchaSolved(true)
+  function handleVerificationSuccess(token: string) {
+    setCaptchaToken(token)
   }
 
-  async function handleRegistration(event: Event) {
-    event.preventDefault()
-    setCaptchaSolved(false)
-
-    // @ts-expect-error
-    const data = new FormData(event.target)
-    const entries = [...data.entries()]
-
-    const credentials = entries.reduce((cred: any, field: any) => {
-      cred[field[0]] = field[1]
-      return cred
-    }, {})
+  async function handleRegistration() {
+    setCaptchaToken("")
 
     const response = await fetch("https://registry.omnitory.org/registration", {
       method: "post",
-      body: JSON.stringify(credentials),
+      body: JSON.stringify({
+        "h-captcha-response": captchaToken,
+        address: selectedAddress,
+      }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -37,12 +37,12 @@ export function Registration() {
   return (
     <>
       {registrationResult.length > 0 && (
-        <div class="alert my-10">
+        <div className="alert my-10">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            class="stroke-info shrink-0 w-6 h-6"
+            className="stroke-info shrink-0 w-6 h-6"
           >
             <path
               stroke-linecap="round"
@@ -55,32 +55,22 @@ export function Registration() {
         </div>
       )}
 
-      <form onSubmit={handleRegistration} class="pb-10">
-        <div class="join w-full">
-          <div class="form-control w-full">
-            <input
-              name="address"
-              type="text"
-              placeholder="Enter Arweave address..."
-              class="input input-bordered w-full"
-            />
-          </div>
-          <br />
-          {/* @ts-expect-error */}
-          <HCaptcha
-            sitekey="19cddd56-75c2-4c8f-b78d-dd5c56dbd358"
-            onVerify={handleVerificationSuccess}
-          />
-        </div>
-        <br />
+      <div className="join w-full pb-20">
+        <ConnectButton showBalance={false} style={{ width: 300 }} />
+        <HCaptcha
+          sitekey="19cddd56-75c2-4c8f-b78d-dd5c56dbd358"
+          onVerify={handleVerificationSuccess}
+        />
         <button
+          onClick={handleRegistration}
           type="submit"
-          class="btn btn-primary btn-block"
-          disabled={!captchaSolved}
+          className="btn btn-primary btn-wide"
+          disabled={captchaToken === "" || !arweaveConnection.connected}
+          style={{ height: 74 }}
         >
-          Submit
+          Register
         </button>
-      </form>
+      </div>
     </>
   )
 }

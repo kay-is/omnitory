@@ -1,5 +1,4 @@
-import "preact/devtools"
-import { render } from "preact"
+import { render } from "react-dom"
 import { Application } from "./components/application.tsx"
 
 render(<Application />, document.getElementById("app")!)
