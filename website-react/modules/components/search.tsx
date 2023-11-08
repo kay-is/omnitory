@@ -13,17 +13,19 @@ export function Search() {
     const pkg: any = await findPackage("npm-" + searchPackageName)
 
     setSearchLoading(false)
-    const list = Object.keys(pkg.versions).map((version) => {
-      return {
-        date: pkg.time[version]
-          .replace("T", " ")
-          .replace("Z", "")
-          .split(".")[0],
-        name: pkg.name,
-        version,
-        url: pkg.versions[version].dist.tarball,
-      }
-    })
+    const list = Object.keys(pkg.versions)
+      .map((version) => {
+        return {
+          date: pkg.time[version]
+            .replace("T", " ")
+            .replace("Z", "")
+            .split(".")[0],
+          name: pkg.name,
+          version,
+          url: pkg.versions[version].dist.tarball,
+        }
+      })
+      .reverse()
 
     setFoundPackages(list)
   }
