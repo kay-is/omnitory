@@ -4,7 +4,7 @@ import { findPackages as findPackage } from "../services/mem"
 export function Search() {
   const [searchLoading, setSearchLoading] = useState(false)
   const [searchPackageName, setSearchPackageName] =
-    useState<string>("example-project")
+    useState<string>("omnitory-cli")
   const [foundPackages, setFoundPackages] = useState<any[]>([])
 
   async function handlePackageSearch() {
@@ -32,7 +32,7 @@ export function Search() {
     <>
       <div className="join w-full pt-5">
         <div className="form-control">
-          <select className="select select-bordered">
+          <select className="select select-bordered" disabled>
             <option selected>npm</option>
           </select>
         </div>
